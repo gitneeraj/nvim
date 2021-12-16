@@ -22,3 +22,11 @@ Its very easy to install any LSP with the help of nvim-lsp-installer plugin(:Lsp
 - Nvim-tree File explorer
 - Which-Key integrated
 - Barbar prettier tab/buffers
+- Format on save (ESLint)
+
+## TODO
+- Add prettier with EFM
+- Make Which-Key menu better and more keybindings
+
+## Credits
+https://github.com/optimizacija/neovim-config
