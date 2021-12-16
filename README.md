@@ -8,9 +8,9 @@ Its very easy to install any LSP with the help of nvim-lsp-installer plugin(:Lsp
 
 # Screenshots
 
-![Screen 1](https://github.com/gitneeraj/nvim/docs/screen1.png)
+![Screen 1](https://github.com/gitneeraj/nvim/blob/master/docs/screen1.png)
 
-![Screen 2](https://github.com/gitneeraj/nvim/docs/screen2.png)
+![Screen 2](https://github.com/gitneeraj/nvim/blob/master/docs/screen2.png)
 
 ## Features
 - LSP
