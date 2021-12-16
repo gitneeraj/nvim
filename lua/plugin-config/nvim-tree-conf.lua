@@ -66,7 +66,7 @@ require'nvim-tree'.setup {
     custom = {}
   },
   view = {
-    width = 30,
+    width = NVIMTREE_WIDTH,
     height = 30,
     hide_root_folder = false,
     side = 'left',
@@ -86,7 +86,7 @@ _M.toggle_tree = function()
     require'nvim-tree'.close()
     require'bufferline.state'.set_offset(0)
   else
-    require'bufferline.state'.set_offset(30, 'File Explorer')
+    require'bufferline.state'.set_offset(NVIMTREE_WIDTH, 'File Explorer')
     require'nvim-tree'.find_file(true)
   end
 
