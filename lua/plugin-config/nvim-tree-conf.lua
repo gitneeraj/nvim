@@ -1,5 +1,5 @@
 local opts = {silent = true, noremap = true}
-vim.api.nvim_set_keymap('n', '<leader>e', '<Cmd>NvimTreeToggle<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>e', ":lua require'plugin-config.nvim-tree-conf'.toggle_tree()<CR>", opts)
 vim.api.nvim_set_keymap('n', '<leader>r', '<Cmd>NvimTreeRefresh<CR>', opts)
 -- find the currently open file in tree
 vim.api.nvim_set_keymap('n', '<leader>f', '<Cmd>NvimTreeFindFile<CR>', opts)
@@ -77,3 +77,19 @@ require'nvim-tree'.setup {
     }
   }
 }
+
+local view = require'nvim-tree.view'
+
+local _M = {}
+_M.toggle_tree = function()
+  if view.win_open() then
+    require'nvim-tree'.close()
+    require'bufferline.state'.set_offset(0)
+  else
+    require'bufferline.state'.set_offset(31, 'File Explorer')
+    require'nvim-tree'.find_file(true)
+  end
+
+end
+
+return _M
