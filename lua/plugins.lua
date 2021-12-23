@@ -59,7 +59,7 @@ local packer = require('packer').startup(function(use)
   use "rafamadriz/friendly-snippets"
 
   use 'onsails/lspkind-nvim'
-  use 'windwp/nvim-autopairs'
+  use {'windwp/nvim-autopairs', config = require("nvim-autopairs").setup {}}
 
 
   -- TODO: prettify telescope vim, make it use regex & shorten the window
