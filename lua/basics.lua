@@ -26,7 +26,7 @@ autocmd FileChangedShellPost *
 
 -- ================= Scrolling ================= --
 
-vim.o.scrolloff = 8 -- start scrolling when 8 lines away from margins
+vim.o.scrolloff = 999 -- start scrolling when 8 lines away from margins
 
 
 -- ================= Indentation ================= --
