@@ -31,7 +31,10 @@ local packer = require('packer').startup(function(use)
   use 'scrooloose/nerdcommenter'
 
   -- status line
-  use 'glepnir/galaxyline.nvim'
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  }
 
   -- show recent files on empty nvim command
   use 'mhinz/vim-startify'
@@ -59,7 +62,6 @@ local packer = require('packer').startup(function(use)
   use "rafamadriz/friendly-snippets"
 
   use 'onsails/lspkind-nvim'
-  use {'windwp/nvim-autopairs', config = require("nvim-autopairs").setup {}}
 
 
   -- TODO: prettify telescope vim, make it use regex & shorten the window
@@ -128,7 +130,7 @@ require('plugin-config/barbar')
 require('plugin-config/lsp-colors-conf')
 require('plugin-config/lsp-trouble')
 require('plugin-config/lspsaga-conf')
-require('plugin-config/galaxyline-conf')
+require('plugin-config/lualine-conf')
 require('plugin-config/gitsigns-conf')
 require('plugin-config/indent-guide-lines')
 require('plugin-config.comment')
