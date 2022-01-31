@@ -23,15 +23,16 @@ require('gitsigns').setup {
     ['n <leader>hp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
     ['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line()<CR>',
   },
-  watch_index = {
+  watch_gitdir= {
     interval = 1000
   },
   current_line_blame = true,
   sign_priority = 6,
   update_debounce = 100,
   status_formatter = nil, -- Use default
-  use_decoration_api = true,
-  use_internal_diff = true,  -- If luajit is present
+  diff_opts = {
+    internal = true
+  }
 }
 
 -- Change current blame color to light grey
