@@ -18,5 +18,10 @@ require'nvim-treesitter.configs'.setup {
       }
   },
 
-  tree_docs = {enable = true}
+  tree_docs = {enable = true},
+
+  autotag = {
+    enable = true,
+    filetypes = {'html', 'javascript', 'javascriptreact', 'typescriptreact', 'svelte', 'vue', 'rescript'}
+  }
 }

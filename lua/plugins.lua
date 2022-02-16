@@ -116,6 +116,7 @@ local packer = require('packer').startup(function(use)
   }
 
   use 'rhysd/conflict-marker.vim'
+  use 'windwp/nvim-autopairs'
 
   -- this will automatically install listed dependencies
   -- only the first time NeoVim is opened, because that's when Packer gets installed
@@ -138,6 +139,7 @@ require('plugin-config/gitsigns-conf')
 require('plugin-config/indent-guide-lines')
 require('plugin-config.comment')
 require('plugin-config.whichkey')
+require('plugin-config.autopairs-conf')
 -- require('plugin-config/efm')
 
 return packer
