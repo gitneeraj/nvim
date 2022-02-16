@@ -114,6 +114,9 @@ local packer = require('packer').startup(function(use)
   use {
     "folke/which-key.nvim",
   }
+
+  use 'rhysd/conflict-marker.vim'
+
   -- this will automatically install listed dependencies
   -- only the first time NeoVim is opened, because that's when Packer gets installed
   if packerBootstrap then
