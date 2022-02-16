@@ -34,11 +34,3 @@ require('gitsigns').setup {
     internal = true
   }
 }
-
--- Change current blame color to light grey
-vim.cmd([[
-augroup MyColors
-autocmd!
-autocmd ColorScheme * highlight GitSignsCurrentLineBlame guifg=#5c6370
-augroup end
-]])

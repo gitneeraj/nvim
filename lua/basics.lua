@@ -101,3 +101,16 @@ vim.api.nvim_exec([[
     autocmd TextYankPost * silent! lua vim.highlight.on_yank()
   augroup end
 ]], false)
+
+-- Change current blame color to light grey
+vim.cmd([[
+augroup MyColors
+autocmd!
+autocmd ColorScheme * highlight GitSignsCurrentLineBlame guifg=#5c6370
+autocmd ColorScheme * highlight ConflictMarkerBegin guibg=#2f7366
+autocmd ColorScheme * highlight ConflictMarkerOurs guibg=#2e5049
+autocmd ColorScheme * highlight ConflictMarkerTheirs guibg=#344f69
+autocmd ColorScheme * highlight ConflictMarkerEnd guibg=#2f628e
+autocmd ColorScheme * highlight ConflictMarkerCommonAncestorsHunk guibg=#754a81
+augroup end
+]])
