@@ -1,10 +1,12 @@
 local fn = vim.fn
-local installPath = DATA_PATH..'/site/pack/packer/start/packer.nvim'
+local installPath = DATA_PATH .. '/site/pack/packer/start/packer.nvim'
 
 -- install packer if it's not installed already
 local packerBootstrap = nil
 if fn.empty(fn.glob(installPath)) > 0 then
-  packerBootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', installPath})
+  packerBootstrap = fn.system({
+    'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', installPath
+  })
   vim.cmd [[packadd packer.nvim]]
 end
 
@@ -17,12 +19,7 @@ local packer = require('packer').startup(function(use)
   use 'ful1e5/onedark.nvim'
 
   -- git integration
-  use {
-    'lewis6991/gitsigns.nvim',
-    requires = {
-      'nvim-lua/plenary.nvim'
-    }
-  }
+  use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
 
   -- surround vim
   use 'tpope/vim-surround'
@@ -31,23 +28,15 @@ local packer = require('packer').startup(function(use)
   use 'scrooloose/nerdcommenter'
 
   -- status line
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-  }
+  use {'nvim-lualine/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons', opt = true}}
 
   -- show recent files on empty nvim command
   use 'mhinz/vim-startify'
 
-  use {
-    "ray-x/lsp_signature.nvim",
-  }
+  use {"ray-x/lsp_signature.nvim"}
 
   -- lsp config
-  use {
-    'neovim/nvim-lspconfig',
-    'williamboman/nvim-lsp-installer',
-  }
+  use {'neovim/nvim-lspconfig', 'williamboman/nvim-lsp-installer'}
 
   -- for LSP autocompletion
   use 'neovim/nvim-lspconfig'
@@ -63,13 +52,9 @@ local packer = require('packer').startup(function(use)
 
   use 'onsails/lspkind-nvim'
 
-
   -- TODO: prettify telescope vim, make it use regex & shorten the window
   -- telescope - searching / navigation
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = { {'nvim-lua/plenary.nvim'} }
-  }
+  use {'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/plenary.nvim'}}}
 
   -- better hotfix window (for showing and searching through results in telescope's find usages)
   use {"kevinhwang91/nvim-bqf"}
@@ -77,11 +62,7 @@ local packer = require('packer').startup(function(use)
   -- better highlighting
   use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 
-  use {
-    'kyazdani42/nvim-tree.lua',
-    requires = 'kyazdani42/nvim-web-devicons',
-    config = function() require'nvim-tree'.setup {} end
-  }
+  use {'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons'}
 
   -- prettier tabs
   use 'romgrk/barbar.nvim'
@@ -102,30 +83,26 @@ local packer = require('packer').startup(function(use)
   use {
     "ahmedkhalf/lsp-rooter.nvim",
     config = function()
-        require("lsp-rooter").setup {}
+      require("lsp-rooter").setup {}
     end
   }
 
   use 'tpope/vim-sleuth'
-  use {
-    'numToStr/Comment.nvim',
-    requires = 'JoosepAlviste/nvim-ts-context-commentstring'
-  }
-  use {
-    "folke/which-key.nvim",
-  }
+  use {'numToStr/Comment.nvim', requires = 'JoosepAlviste/nvim-ts-context-commentstring'}
+  use {"folke/which-key.nvim"}
 
   use 'rhysd/conflict-marker.vim'
   use 'windwp/nvim-autopairs'
 
+  use({"jose-elias-alvarez/null-ls.nvim", requires = {"nvim-lua/plenary.nvim"}})
+
   -- this will automatically install listed dependencies
   -- only the first time NeoVim is opened, because that's when Packer gets installed
-  if packerBootstrap then
-    require('packer').sync()
-  end
+  if packerBootstrap then require('packer').sync() end
 end)
 
 -- plugin specific configs go here
+-- require('plugin-config.efm')
 require('plugin-config/nvim-cmp')
 require('plugin-config/telescope-conf')
 require('plugin-config/nvim-tree-conf')
@@ -140,6 +117,6 @@ require('plugin-config/indent-guide-lines')
 require('plugin-config.comment')
 require('plugin-config.whichkey')
 require('plugin-config.autopairs-conf')
--- require('plugin-config/efm')
+require('plugin-config.null-ls-conf')
 
 return packer

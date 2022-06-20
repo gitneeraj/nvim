@@ -2,27 +2,24 @@ local lsp_config = require('lspconfig')
 local on_attach = require('plugin-config.efm.on_attach')
 local eslint = require('plugin-config.efm.eslint')
 local prettier = require('plugin-config.efm.prettier')
+local html_prettier = require('plugin-config.efm.html-prettier')
 local luaformat = require('plugin-config.efm.lua-formatter')
 
-local disableFormat = function(client)
-    client.resolved_capabilities.document_formatting = false
-    on_attach(client)
+local format_on_save = function()
+    -- On Pre Buffer
+    vim.api.nvim_command [[augroup Format]]
+    vim.api.nvim_command [[autocmd! * <buffer>]]
+    vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
+    vim.api.nvim_command [[augroup END]]
 end
 
--- format on save
-local format_async = function(err, _, result, _, bufnr)
-    if err ~= nil or result == nil then return end
-    if not vim.api.nvim_buf_get_option(bufnr, "modified") then
-        local view = vim.fn.winsaveview()
-        vim.lsp.util.apply_text_edits(result, bufnr)
-        vim.fn.winrestview(view)
-        if bufnr == vim.api.nvim_get_current_buf() then vim.api.nvim_command("noautocmd :update") end
-    end
-end
+vim.lsp.handlers["textDocument/formatting"] = format_on_save
 
-vim.lsp.handlers["textDocument/formatting"] = format_async
-
-local efm_root_markers = {'package.json', '.git/', '.zshrc'}
+local efm_root_markers = {
+    'package.json', '.git/', '.zshrc', ".lua-format", ".eslintrc.cjs", ".eslintrc", ".eslintrc.json", ".eslintrc.js",
+    ".prettierrc", ".prettierrc.js", ".prettierrc.json", ".prettierrc.yml", ".prettierrc.yaml", ".prettier.config.js",
+    ".prettier.config.cjs"
+}
 local efm_languages = {
     yaml = {prettier},
     json = {prettier},
@@ -44,21 +41,30 @@ local efm_languages = {
     lua = {luaformat}
 }
 
-lsp_config.efm.setup({
+return {
     filetypes = {
-        'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx', 'svelte', 'lua', 'json', 'html'
+        'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx', 'svelte',
+        'lua', 'json', 'css', 'scss', 'sass', 'less'
     },
     on_attach = on_attach,
     root_dir = lsp_config.util.root_pattern(unpack(efm_root_markers)),
-    init_options = {documentFormatting = true},
-    settings = {rootMarkers = efm_root_markers, languages = efm_languages}
-})
 
-lsp_config.tsserver.setup {on_attach = disableFormat}
+    -- Set some extra settings
+    init_options = {
+        -- Enable document formatting
+        documentFormatting = true,
 
-lsp_config.svelte.setup {on_attach = disableFormat}
+        -- Enable hover information functionality
+        hover = true,
 
-lsp_config.jsonls.setup {on_attach = disableFormat}
+        -- Enable the use of symbols
+        documentSymbol = true,
 
-lsp_config.html.setup {on_attach = disableFormat}
+        -- Enable the use of code actions
+        codeAction = true,
 
+        -- Enable autocompletion popup
+        completion = true
+    },
+    settings = {log_file = '~/.config/nvim/efm.log', rootMarkers = efm_root_markers, languages = efm_languages}
+}
